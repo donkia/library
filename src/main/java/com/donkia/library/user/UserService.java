@@ -29,6 +29,16 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    // 로그인
+    public User login(LoginDto loginDto){
+        User loginUser = userRepository.findByEmail(loginDto.getEmail());
+
+        if(!passwordEncoder.matches(loginDto.getPassword(), loginUser.getPassword())){
+            return null;
+        }
+        return loginUser;
+    }
+
 
 
 }

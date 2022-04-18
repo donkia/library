@@ -1,5 +1,7 @@
 package com.donkia.library.user;
 
+import org.junit.Before;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
-
 class UserServiceTest {
 
 
@@ -20,8 +21,11 @@ class UserServiceTest {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+
+
     @Test
     void saveUser() {
+
         UserDto userDto = new UserDto("kim", "11@c.com", "1234");
         User user = User.builder()
                 .name(userDto.getName())
@@ -33,5 +37,23 @@ class UserServiceTest {
 
         assertEquals(savedUser.getEmail(), userDto.getEmail());
         assertTrue(passwordEncoder.matches(userDto.getPassword(), savedUser.getPassword()));
-        }
+    }
+
+    @Test
+    @DisplayName("로그인")
+    void 로그인(){
+        UserDto userDto = new UserDto("kim", "11@test.com", "1234");
+        User user = User.builder()
+                .name(userDto.getName())
+                .password(passwordEncoder.encode(userDto.getPassword()))
+                .email(userDto.getEmail())
+                .build();
+        User savedUser = userRepository.save(user);
+
+        LoginDto loginDto = new LoginDto("11@test.com", "1234");
+
+        User loginUser = userRepository.findByEmail(loginDto.getEmail());
+        assertTrue(passwordEncoder.matches(loginDto.getPassword(), loginUser.getPassword()));
+
+    }
 }

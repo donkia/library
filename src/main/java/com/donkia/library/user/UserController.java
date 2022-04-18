@@ -45,4 +45,25 @@ public class UserController {
 
         return new ResponseEntity(user, HttpStatus.OK);
     }
+
+    @PostMapping("/login")
+    public ResponseEntity login(@Valid @RequestBody LoginDto loginDto, BindingResult bindingResult){
+
+        HttpHeaders headers= new HttpHeaders();
+        System.out.println("loginDto : " + loginDto);
+        headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+
+        if(bindingResult.hasErrors()){
+            return new ResponseEntity("필수값 확인 요청", headers, HttpStatus.BAD_REQUEST);
+        }
+
+        User loginUser = userService.login(loginDto);
+
+        if(loginUser == null){
+            return new ResponseEntity("회원이 아닙니다", headers, HttpStatus.BAD_REQUEST);
+        }
+
+
+        return new ResponseEntity("로그인 성공", headers, HttpStatus.OK);
+    }
 }
