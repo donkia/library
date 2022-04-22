@@ -21,6 +21,8 @@ public class Book {
     private String author;
     private String state;
     private String location;
+    
+    private Boolean isBorrow; //현재 대출 상태
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime yearOfPublication; //출판년도

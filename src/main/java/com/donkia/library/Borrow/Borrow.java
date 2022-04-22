@@ -1,5 +1,6 @@
 package com.donkia.library.Borrow;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Builder
+@AllArgsConstructor
 public class Borrow {
 
     @Id
@@ -35,9 +37,6 @@ public class Borrow {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     LocalDateTime returnDate; //반납일
 
-    public Borrow(){
-
-    }
 
 
 

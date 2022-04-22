@@ -1,14 +1,15 @@
 package com.donkia.library.user;
 
+import com.donkia.library.Book.Book;
+import com.donkia.library.Borrow.Borrow;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -31,6 +32,9 @@ public class User {
         this.email = email;
         this.password = password;
     }
+
+    @OneToMany
+    private ArrayList<Borrow> borrowList;
 
     public User(){
 
