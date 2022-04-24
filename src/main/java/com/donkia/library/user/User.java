@@ -27,6 +27,8 @@ public class User {
 
     private String password;
 
+    private String role;
+
     @Builder
     public User(String name, String email, String password){
         this.name = name;
