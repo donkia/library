@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 //import static org.hamcrest.MatcherAssert.assertThat;
@@ -28,7 +29,7 @@ class BookServiceTest {
                 .name("name1")
                 .author("author2")
                 .state("state")
-                .yearOfPublication(LocalDateTime.now())
+                .yearOfPublication(LocalDate.now())
                 .build();
 
         bookRepository.save(book);

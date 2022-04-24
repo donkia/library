@@ -23,7 +23,7 @@ public class BookResponseDto  {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 //    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime yearOfPublication;
+    private LocalDate yearOfPublication;
 
     public BookResponseDto(){
 

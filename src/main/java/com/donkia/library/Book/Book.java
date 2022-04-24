@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -14,6 +15,7 @@ import java.util.Date;
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="book_id")
     private Long id;
 
 
@@ -25,10 +27,10 @@ public class Book {
     private Boolean isBorrow; //현재 대출 상태
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime yearOfPublication; //출판년도
+    private LocalDate yearOfPublication; //출판년도
 
     @Builder
-    Book(String name, String author, String state, String location, LocalDateTime yearOfPublication){
+    Book(String name, String author, String state, String location, LocalDate yearOfPublication){
         this.name = name;
         this.author = author;
         this.state = state;

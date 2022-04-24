@@ -34,3 +34,6 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable();
     }
 }
+
+// security session 안에는 authentication타입의 객체가 들어가고, 그 안에는 user정보가 있는 userdetails 이 있음
+

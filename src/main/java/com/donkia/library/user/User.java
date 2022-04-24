@@ -18,6 +18,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long id;
 
     private String name;
@@ -33,8 +34,8 @@ public class User {
         this.password = password;
     }
 
-    @OneToMany
-    private ArrayList<Borrow> borrowList;
+    @OneToMany(mappedBy = "user")
+    private List<Borrow> borrowList;
 
     public User(){
 

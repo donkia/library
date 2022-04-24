@@ -1,15 +1,15 @@
 package com.donkia.library.Borrow;
 
+import com.donkia.library.Book.Book;
+import com.donkia.library.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 //책을 대여하는 엔티티
@@ -22,22 +22,23 @@ public class Borrow {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
-    Long userId;
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
 
-    Long bookId;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    LocalDateTime borrowDate; //대출일
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    LocalDateTime returnExpectDate; //반납 예정일
+    @OneToOne
+    @JoinColumn(name="book_id")
+    private Book book;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    LocalDateTime returnDate; //반납일
+    private LocalDate borrowDate; //대출일
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate returnExpectDate; //반납 예정일
 
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate returnDate; //반납일
 
 }
