@@ -5,6 +5,7 @@ import com.donkia.library.Borrow.Borrow;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@ToString
 public class User {
 
     @Id
@@ -36,7 +38,7 @@ public class User {
         this.password = password;
     }
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Borrow> borrowList;
 
     public User(){
