@@ -1,6 +1,8 @@
 package com.donkia.library.config;
 
 import com.donkia.library.jwt.JwtAuthenticationFilter;
+import com.donkia.library.jwt.JwtAuthorizationFilter;
+import com.donkia.library.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +22,7 @@ import org.springframework.web.filter.CorsFilter;
 public class WebConfig extends WebSecurityConfigurerAdapter {
 
     private final CorsFilter corsFilter;
+    private final UserRepository userRepository;
 
     @Bean
     public PasswordEncoder getPasswordEncoder(){
@@ -42,9 +45,18 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .formLogin().disable()
                 .addFilter(new JwtAuthenticationFilter(authenticationManager())) // 20220424 KBH login 전에 token을 확인하는 필터 생성
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(), userRepository))
                 .httpBasic().disable() //http basic은 헤더의 authorization영역에 id,pw를 담아서 서버에 보내는 방식(https 가 아니면 노출될 가능성이 있음). 그에 비해 bearer 방식은 token을 가지고 보냄
                 .headers().frameOptions().disable()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/api/v1/user/**")
+                .access("hasRole('ROLE_USER') or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
+                .antMatchers("/api/v1/manager/**")
+                .access("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
+                .anyRequest().permitAll()
         ;
+
     }
 }
 

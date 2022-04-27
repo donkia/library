@@ -60,7 +60,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        //System.out.println("successfulAuthentication 호출 - 인증이 완료");
+        System.out.println("successfulAuthentication 호출 - 인증이 완료");
 
         PrincipalDetails principalDetails = (PrincipalDetails) authResult.getPrincipal();
 
@@ -72,6 +72,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .sign(Algorithm.HMAC512("donkia"));
 
         response.addHeader("Authorization", "Bearer " + jwtToken);
+        System.out.println("jwtToken : " + jwtToken);
+        System.out.println("response : " + response.toString());
         super.successfulAuthentication(request, response, chain, authResult);
     }
 }
