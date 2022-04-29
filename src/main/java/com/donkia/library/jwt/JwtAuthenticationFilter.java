@@ -74,6 +74,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.addHeader("Authorization", "Bearer " + jwtToken);
         System.out.println("jwtToken : " + jwtToken);
         System.out.println("response : " + response.toString());
-        super.successfulAuthentication(request, response, chain, authResult);
+        //super.successfulAuthentication(request, response, chain, authResult);
     }
 }

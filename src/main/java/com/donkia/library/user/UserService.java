@@ -30,15 +30,25 @@ public class UserService {
     }
 
     // 로그인
-    public User login(LoginDto loginDto){
+    /*public User login(LoginDto loginDto){
         User loginUser = userRepository.findByEmail(loginDto.getEmail());
 
         if(!passwordEncoder.matches(loginDto.getPassword(), loginUser.getPassword())){
             return null;
         }
         return loginUser;
+    }*/
+
+    // 유저 정보
+    public UserInfoDto userInfo(String email){
+        User user = userRepository.findByEmail(email);
+
+        if(user != null){
+            UserInfoDto userInfoDto = new UserInfoDto(user);
+            return userInfoDto;
+        }
+        return null;
+
     }
-
-
 
 }

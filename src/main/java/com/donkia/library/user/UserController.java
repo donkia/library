@@ -20,6 +20,7 @@ import java.nio.charset.Charset;
 @Api(tags = "회원관련된 API")
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("api/v1")
 public class UserController {
 
     private final UserService userService;
@@ -29,7 +30,7 @@ public class UserController {
             @ApiResponse(code = 200, message = "회원가입 완료"),
             @ApiResponse(code = 400, message = "필수값 누락"),
     })
-    @PostMapping("/signup")
+    @PostMapping("signup")
     public ResponseEntity signUp(@Valid @RequestBody UserDto userDto, BindingResult bindingResult){
 
         HttpHeaders headers= new HttpHeaders();
@@ -46,7 +47,7 @@ public class UserController {
         return new ResponseEntity(user, HttpStatus.OK);
     }
 
-    @PostMapping("/login")
+    /*@PostMapping("login")
     public ResponseEntity login(@Valid @RequestBody LoginDto loginDto, BindingResult bindingResult){
 
         HttpHeaders headers= new HttpHeaders();
@@ -65,5 +66,17 @@ public class UserController {
 
 
         return new ResponseEntity("로그인 성공", headers, HttpStatus.OK);
+    }
+*/
+    @GetMapping("userInfo")
+    public ResponseEntity<?> userInformation(@RequestParam String email){
+
+        UserInfoDto user = userService.userInfo(email);
+
+        if(user == null){
+            return new ResponseEntity<>("회원정보가 없습니다.", HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(user,HttpStatus.OK);
     }
 }
