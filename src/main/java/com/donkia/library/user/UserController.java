@@ -38,7 +38,8 @@ public class UserController {
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 
         if(bindingResult.hasErrors()){
-            return new ResponseEntity("필수값 확인 요청", headers, HttpStatus.BAD_REQUEST);
+            //return new ResponseEntity("필수값 확인 요청", headers, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(bindingResult.getFieldError(), headers, HttpStatus.BAD_REQUEST);
         }
 
         User user = userService.saveUser(userDto);

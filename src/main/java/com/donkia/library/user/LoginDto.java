@@ -12,7 +12,7 @@ public class LoginDto {
     private String email;
 
     @NonNull
-    @Size(min = 8)
+    @Size(min = 8, message = "최소 8자리 이상 입력해주세요.")
     private String password;
 
     public LoginDto(String email, String password){
