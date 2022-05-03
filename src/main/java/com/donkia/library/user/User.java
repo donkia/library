@@ -1,5 +1,6 @@
 package com.donkia.library.user;
 
+import com.donkia.library.BaseTimeEntity;
 import com.donkia.library.Book.Book;
 import com.donkia.library.Borrow.Borrow;
 import lombok.Builder;
@@ -16,7 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class User {
+public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

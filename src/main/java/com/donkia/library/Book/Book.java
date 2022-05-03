@@ -1,5 +1,6 @@
 package com.donkia.library.Book;
 
+import com.donkia.library.BaseTimeEntity;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -12,7 +13,7 @@ import java.util.Date;
 
 @Data
 @NoArgsConstructor
-public class Book {
+public class Book extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="book_id")
@@ -30,12 +31,13 @@ public class Book {
     private LocalDate yearOfPublication; //출판년도
 
     @Builder
-    Book(String name, String author, String state, String location, LocalDate yearOfPublication){
+    Book(String name, String author, String state, String location, LocalDate yearOfPublication, Boolean isBorrow){
         this.name = name;
         this.author = author;
         this.state = state;
         this.location = location;
         this.yearOfPublication = yearOfPublication;
+        this.isBorrow = false;
     }
 
     public BookResponseDto setBookResponseDto(){

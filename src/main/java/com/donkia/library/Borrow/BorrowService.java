@@ -25,6 +25,8 @@ public class BorrowService {
         User borrowUser = userRepository.findByEmail(borrowDto.getUserEmail());
         for(Long bookId : borrowDto.getListBookId()) {
             Book book = bookRepository.findById(bookId).orElseThrow(IllegalArgumentException::new);
+            book.setIsBorrow(true);
+
             Borrow borrow = Borrow.builder()
                     .user(borrowUser)
                     .book(book)

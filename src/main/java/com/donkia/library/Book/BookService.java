@@ -17,14 +17,15 @@ public class BookService {
     }
 
     public long save(BookResponseDto bookResponseDto) {
-        bookRepository.save(Book.builder()
+        Book saveBook = Book.builder()
                 .author(bookResponseDto.getAuthor())
                 .location(bookResponseDto.getLocation())
                 .name(bookResponseDto.getName())
                 .state(bookResponseDto.getState())
                 .yearOfPublication(bookResponseDto.getYearOfPublication())
-                .build());
-        return 1L;
+                .build();
+        bookRepository.save(saveBook);
+        return saveBook.getId();
     }
 
 }

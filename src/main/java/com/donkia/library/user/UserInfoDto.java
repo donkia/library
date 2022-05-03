@@ -4,6 +4,7 @@ import com.donkia.library.Book.Book;
 import com.donkia.library.Borrow.Borrow;
 import lombok.Data;
 
+import javax.validation.constraints.Email;
 import java.util.List;
 
 @Data
@@ -13,6 +14,7 @@ public class UserInfoDto {
 
     private String name;
 
+    @Email
     private String email;
 
     private String role;

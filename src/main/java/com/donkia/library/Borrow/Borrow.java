@@ -1,5 +1,6 @@
 package com.donkia.library.Borrow;
 
+import com.donkia.library.BaseTimeEntity;
 import com.donkia.library.Book.Book;
 import com.donkia.library.user.User;
 import lombok.AllArgsConstructor;
@@ -18,7 +19,7 @@ import java.time.LocalDateTime;
 @Getter
 @Builder
 @AllArgsConstructor
-public class Borrow {
+public class Borrow extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
