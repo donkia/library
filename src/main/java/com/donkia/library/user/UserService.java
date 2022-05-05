@@ -45,6 +45,7 @@ public class UserService {
 
         if(user != null){
             UserInfoDto userInfoDto = new UserInfoDto(user);
+            System.out.println("user : " + user +", userInfoDto : " + userInfoDto);
             return userInfoDto;
         }
         return null;

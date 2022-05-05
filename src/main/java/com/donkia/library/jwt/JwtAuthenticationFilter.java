@@ -63,7 +63,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         System.out.println("successfulAuthentication 호출 - 인증이 완료");
 
         PrincipalDetails principalDetails = (PrincipalDetails) authResult.getPrincipal();
-
         //RSA방식 말고 Hash암호방식
         String jwtToken = JWT.create()
                 .withSubject("token")

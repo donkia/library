@@ -38,15 +38,17 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
         System.out.println("jwtHeader : " + jwtHeader);
         //header 가 있는지 확인
-        if(jwtHeader == null || jwtHeader.startsWith("Bearer")){
+        if(jwtHeader == null || !jwtHeader.startsWith("Bearer")){
+            System.out.println("error");
             chain.doFilter(request, response);
             return ;
         }
 
         String jwtToken = request.getHeader("Authorization").replace("Bearer ", "");
+        System.out.println("jwtToken : " + jwtToken);
         String userName = JWT.require(Algorithm.HMAC512("donkia")).build().verify(jwtToken).getClaim("username").asString();
 
-        System.out.println("jwtHeader : " + jwtHeader + " , userName : " + userName);
+        System.out.println("userName : " + userName);
         //서명이 정상적으로 됨
         if(userName != null){
             User user = userRepository.findByEmail(userName);
@@ -58,8 +60,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             // 강제로 시큐리티의 세션에 접근하여 Authentication 객체를 저장
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            chain.doFilter(request, response);
         }
+        chain.doFilter(request, response);
 
     }
 }

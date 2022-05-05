@@ -69,15 +69,18 @@ public class UserController {
         return new ResponseEntity("로그인 성공", headers, HttpStatus.OK);
     }
 */
-    @GetMapping("userInfo")
-    public ResponseEntity<?> userInformation(@RequestParam String email){
+    @PostMapping("userInfo")
+    public UserInfoDto userInformation(String email){
+        System.out.println("email : " + email);
+        UserInfoDto userInfoDto = userService.userInfo(email);
+        System.out.println("userInfoDto : " + userInfoDto);
 
-        UserInfoDto user = userService.userInfo(email);
+        if(userInfoDto == null){
+            //return new ResponseEntity("회원정보가 없습니다.", HttpStatus.BAD_REQUEST);
+            return null;
 
-        if(user == null){
-            return new ResponseEntity<>("회원정보가 없습니다.", HttpStatus.BAD_REQUEST);
         }
-
-        return new ResponseEntity<>(user,HttpStatus.OK);
+        //return new ResponseEntity(userInfoDto,HttpStatus.OK);
+        return userInfoDto;
     }
 }
