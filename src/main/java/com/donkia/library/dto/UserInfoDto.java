@@ -1,7 +1,8 @@
-package com.donkia.library.user;
+package com.donkia.library.dto;
 
 import com.donkia.library.Book.Book;
 import com.donkia.library.Borrow.Borrow;
+import com.donkia.library.user.User;
 import lombok.Data;
 
 import javax.validation.constraints.Email;

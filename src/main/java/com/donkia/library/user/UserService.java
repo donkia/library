@@ -1,5 +1,7 @@
 package com.donkia.library.user;
 
+import com.donkia.library.dto.UserDto;
+import com.donkia.library.dto.UserInfoDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,7 +20,7 @@ public class UserService {
 
 
     //회원가입
-    public User saveUser(UserDto userDto){
+    public User saveUser(UserDto userDto) {
 
         User user = User.builder()
                 .name(userDto.getName())
@@ -29,27 +31,19 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    // 로그인
-    /*public User login(LoginDto loginDto){
-        User loginUser = userRepository.findByEmail(loginDto.getEmail());
-
-        if(!passwordEncoder.matches(loginDto.getPassword(), loginUser.getPassword())){
-            return null;
-        }
-        return loginUser;
-    }*/
-
     // 유저 정보
-    public UserInfoDto userInfo(String email){
-        User user = userRepository.findByEmail(email);
+    public UserInfoDto userInfo(Long id) {
+        User user = userRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        System.out.println("user : " + user);
+        UserInfoDto userInfoDto = new UserInfoDto(user);
+        return userInfoDto;
 
-        if(user != null){
-            UserInfoDto userInfoDto = new UserInfoDto(user);
-            System.out.println("user : " + user +", userInfoDto : " + userInfoDto);
-            return userInfoDto;
-        }
-        return null;
+    }
 
+    // 유저 삭제
+    public void delete(Long id){
+        User user = userRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        userRepository.delete(user);
     }
 
 }

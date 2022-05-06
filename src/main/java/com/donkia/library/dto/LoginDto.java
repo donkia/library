@@ -1,4 +1,4 @@
-package com.donkia.library.user;
+package com.donkia.library.dto;
 
 import lombok.Getter;
 import lombok.NonNull;
